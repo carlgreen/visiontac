@@ -66,14 +66,16 @@ public final class Vgps900Parser {
     }
 
     double parseLatitude(final String latitudeString) {
-        final double unsignedLatitude = Double.parseDouble(latitudeString.substring(0, latitudeString.length() - 1));
-        final char latitudeSign = latitudeString.charAt(latitudeString.length() - 1);
-        return latitudeSign == 'N' ? unsignedLatitude : unsignedLatitude * -1;
+        return parseLatLngString(latitudeString, 'N');
     }
 
     double parseLongitude(final String longitudeString) {
-        final double unsignedLongitude = Double.parseDouble(longitudeString.substring(0, longitudeString.length() - 1));
-        final char longitudeSign = longitudeString.charAt(longitudeString.length() - 1);
-        return longitudeSign == 'E' ? unsignedLongitude : unsignedLongitude * -1;
+        return parseLatLngString(longitudeString, 'E');
+    }
+
+    private double parseLatLngString(final String str, final char positiveSign) {
+        final double unsigned = Double.parseDouble(str.substring(0, str.length() - 1));
+        final char signChar = str.charAt(str.length() - 1);
+        return signChar == positiveSign ? unsigned : unsigned * -1;
     }
 }
