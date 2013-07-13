@@ -17,7 +17,9 @@
 package info.carlwithak.gps.visiontac.vgps900;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -38,7 +40,11 @@ public class Vgps900ParserTest {
         final Vgps900Data result = parser.parse(input);
         assertThat(result.getIndex(), is(1L));
         assertThat(result.getTag(), is('T'));
-        assertThat(result.getTimestamp(), is(new Date(111, 11, 14, 7, 50, 59))); // NZDT
+        final Calendar date = new GregorianCalendar();
+        date.set(Calendar.MILLISECOND, 0);
+        date.setTimeZone(TimeZone.getTimeZone("UTC"));
+        date.set(111 + 1900, 11, 13, 18, 50, 59);
+        assertThat(result.getTimestamp(), is(date.getTime()));
         assertThat(result.getLatitude(), is(-36.874506));
         assertThat(result.getLongitude(), is(174.779188));
         assertThat(result.getHeight(), is(152));
