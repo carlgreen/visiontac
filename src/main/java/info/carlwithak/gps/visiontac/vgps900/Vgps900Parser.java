@@ -46,12 +46,16 @@ public final class Vgps900Parser {
         data.setHeight(Integer.parseInt(fields[6]));
         data.setSpeed(Integer.parseInt(fields[7]));
         data.setHeading(Integer.parseInt(fields[8]));
-        data.setFixMode(fields[9]);
-        data.setValid(fields[10]);
-        data.setPdop(Double.parseDouble(fields[11]));
-        data.setHdop(Double.parseDouble(fields[12]));
-        data.setVdop(Double.parseDouble(fields[13]));
-        data.setVox(fields[14].trim());
+        if (fields.length == 15) {
+            data.setFixMode(fields[9]);
+            data.setValid(fields[10]);
+            data.setPdop(Double.parseDouble(fields[11]));
+            data.setHdop(Double.parseDouble(fields[12]));
+            data.setVdop(Double.parseDouble(fields[13]));
+            data.setVox(fields[14].trim());
+        } else {
+            data.setVox(fields[9].trim());
+        }
 
         return data;
     }

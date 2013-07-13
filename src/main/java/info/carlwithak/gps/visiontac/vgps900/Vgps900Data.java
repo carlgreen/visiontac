@@ -42,9 +42,9 @@ public class Vgps900Data {
     private int heading;
     private String fixMode;
     private String valid;
-    private double pdop;
-    private double hdop;
-    private double vdop;
+    private Double pdop;
+    private Double hdop;
+    private Double vdop;
     private String vox;
 
     public long getIndex() {
@@ -127,27 +127,27 @@ public class Vgps900Data {
         this.valid = valid;
     }
 
-    public double getPdop() {
+    public Double getPdop() {
         return pdop;
     }
 
-    void setPdop(final double pdop) {
+    void setPdop(final Double pdop) {
         this.pdop = pdop;
     }
 
-    public double getHdop() {
+    public Double getHdop() {
         return hdop;
     }
 
-    void setHdop(final double hdop) {
+    void setHdop(final Double hdop) {
         this.hdop = hdop;
     }
 
-    public double getVdop() {
+    public Double getVdop() {
         return vdop;
     }
 
-    void setVdop(final double vdop) {
+    void setVdop(final Double vdop) {
         this.vdop = vdop;
     }
 

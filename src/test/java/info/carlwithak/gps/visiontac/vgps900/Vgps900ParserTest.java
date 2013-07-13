@@ -23,6 +23,7 @@ import java.util.TimeZone;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -61,6 +62,27 @@ public class Vgps900ParserTest {
     @Test
     public void testParseWesternLongitude() throws InvalidDataException {
         assertThat(parser.parseLongitude("174.779188W"), is(-174.779188));
+    }
+
+    @Test
+    public void testParseStandardLine() throws Exception {
+        final String input = "23\0\0\0\0,T,090512,041041,41.302453S,174.778450E,2\0\0,3\0\0\0,0\0\0,\0\0\0\0\0\0\0\0\0";
+
+        final Vgps900Data result = parser.parse(input);
+        assertThat(result.getIndex(), is(23L));
+        assertThat(result.getTag(), is('T'));
+        assertThat(result.getTimestamp(), is(getUtcDate(109 + 1900, 4, 12, 4, 10, 41)));
+        assertThat(result.getLatitude(), is(-41.302453));
+        assertThat(result.getLongitude(), is(174.778450));
+        assertThat(result.getHeight(), is(2));
+        assertThat(result.getSpeed(), is(3));
+        assertThat(result.getHeading(), is(0));
+        assertThat(result.getFixMode(), is(nullValue()));
+        assertThat(result.getValid(), is(nullValue()));
+        assertThat(result.getPdop(), is(nullValue()));
+        assertThat(result.getHdop(), is(nullValue()));
+        assertThat(result.getVdop(), is(nullValue()));
+        assertThat(result.getVox(), is(""));
     }
 
     @Test
