@@ -22,6 +22,7 @@ package info.carlwithak.gps.visiontac.vgps900;
  */
 public class InvalidDataException extends Exception {
 
+    private static final long serialVersionUID = 1L;
     private final String data;
 
     public InvalidDataException(final Throwable cause, final String data) {
