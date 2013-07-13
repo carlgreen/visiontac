@@ -39,22 +39,27 @@ public class Vgps900ParserTest {
     }
 
     @Test
-    public void testParseNorthernLatitude() {
+    public void testParseNorthernLatitude() throws InvalidDataException {
         assertThat(parser.parseLatitude("36.874506N"), is(36.874506));
     }
 
     @Test
-    public void testParseSouthernLatitude() {
+    public void testParseSouthernLatitude() throws InvalidDataException {
         assertThat(parser.parseLatitude("36.874506S"), is(-36.874506));
     }
 
+    @Test(expected = InvalidDataException.class)
+    public void testParseInvalidLatitude() throws InvalidDataException {
+        parser.parseLatitude("36.874506X");
+    }
+
     @Test
-    public void testParseEasternLongitude() {
+    public void testParseEasternLongitude() throws InvalidDataException {
         assertThat(parser.parseLongitude("174.779188E"), is(174.779188));
     }
 
     @Test
-    public void testParseWesternLongitude() {
+    public void testParseWesternLongitude() throws InvalidDataException {
         assertThat(parser.parseLongitude("174.779188W"), is(-174.779188));
     }
 

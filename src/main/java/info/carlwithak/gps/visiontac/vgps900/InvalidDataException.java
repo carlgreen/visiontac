@@ -25,6 +25,11 @@ public class InvalidDataException extends Exception {
     private static final long serialVersionUID = 1L;
     private final String data;
 
+    public InvalidDataException(final String message, final String data) {
+        super(message);
+        this.data = data;
+    }
+
     public InvalidDataException(final Throwable cause, final String data) {
         super(cause);
         this.data = data;

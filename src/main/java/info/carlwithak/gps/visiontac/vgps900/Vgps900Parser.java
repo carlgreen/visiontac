@@ -65,17 +65,20 @@ public final class Vgps900Parser {
         }
     }
 
-    double parseLatitude(final String latitudeString) {
-        return parseLatLngString(latitudeString, 'N');
+    double parseLatitude(final String latitudeString) throws InvalidDataException {
+        return parseLatLngString(latitudeString, 'N', 'S');
     }
 
-    double parseLongitude(final String longitudeString) {
-        return parseLatLngString(longitudeString, 'E');
+    double parseLongitude(final String longitudeString) throws InvalidDataException {
+        return parseLatLngString(longitudeString, 'E', 'W');
     }
 
-    private double parseLatLngString(final String str, final char positiveSign) {
+    private double parseLatLngString(final String str, final char positiveSign, final char negativeSign) throws InvalidDataException {
         final double unsigned = Double.parseDouble(str.substring(0, str.length() - 1));
         final char signChar = str.charAt(str.length() - 1);
+        if (signChar != positiveSign && signChar != negativeSign) {
+            throw new InvalidDataException("Invalid latitude or longitude string: " + str, str);
+        }
         return signChar == positiveSign ? unsigned : unsigned * -1;
     }
 }
