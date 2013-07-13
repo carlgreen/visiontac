@@ -16,9 +16,15 @@
  */
 package info.carlwithak.gps.visiontac.vgps900;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -29,7 +35,7 @@ public final class Vgps900Parser {
 
     private final SimpleDateFormat utcDateFormat;
 
-    public Vgps900Parser() {
+    Vgps900Parser() {
         utcDateFormat = new SimpleDateFormat("yyMMddHHmmss");
         utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
@@ -85,5 +91,21 @@ public final class Vgps900Parser {
             throw new InvalidDataException("Invalid latitude or longitude string: " + str, str);
         }
         return signChar == positiveSign ? unsigned : unsigned * -1;
+    }
+
+    public static List<Vgps900Data> parse(final InputStream is) throws IOException, InvalidDataException {
+        final Vgps900Parser parser = new Vgps900Parser();
+        final BufferedReader rdr = new BufferedReader(new InputStreamReader(is));
+        final ArrayList<Vgps900Data> path = new ArrayList<>();
+
+        // ignore header
+        rdr.readLine();
+
+        String line;
+        while ((line = rdr.readLine()) != null) {
+            path.add(parser.parse(line));
+        }
+
+        return path;
     }
 }
