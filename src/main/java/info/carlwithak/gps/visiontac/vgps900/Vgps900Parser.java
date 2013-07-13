@@ -33,14 +33,17 @@ public final class Vgps900Parser {
         DF.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
-    public Vgps900Data parse(final String line) throws ParseException {
+    public Vgps900Data parse(final String line) throws InvalidDataException {
         final Vgps900Data data = new Vgps900Data();
         final String[] fields = line.split("\0*,");
 
         data.setIndex(Long.parseLong(fields[0]));
         data.setTag(fields[1].charAt(0));
-        // TODO catch ParseException and throw my own thing
-        data.setTimestamp(DF.parse(fields[2] + fields[3]));
+        try {
+            data.setTimestamp(DF.parse(fields[2] + fields[3]));
+        } catch (final ParseException e) {
+            throw new InvalidDataException(e, line);
+        }
         double latitude = Double.parseDouble(fields[4].substring(0, fields[4].length() - 1));
         final char latitudeSign = fields[4].charAt(fields[4].length() - 1);
         if (latitudeSign == 'S') {

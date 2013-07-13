@@ -16,7 +16,6 @@
  */
 package info.carlwithak.gps.visiontac.vgps900;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -34,7 +33,7 @@ public class Vgps900ParserTest {
     private final Vgps900Parser parser = new Vgps900Parser();
 
     @Test
-    public void testParseAdvancedLine() throws ParseException {
+    public void testParseAdvancedLine() throws InvalidDataException {
         final String input = "1\0\0\0\0\0,T,111213,185059,36.874506S,174.779188E,152\0\0,79\0\0,120,3D,SPS ,2.1\0\0,1.9\0\0,1.0\0\0,\0\0\0\0\0\0\0\0\0";
 
         final Vgps900Data result = parser.parse(input);
