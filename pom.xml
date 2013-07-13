@@ -1,55 +1,64 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>info.carlwithak.visiontac</groupId>
-  <artifactId>vgps900-parser</artifactId>
-  <version>0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>info.carlwithak.visiontac</groupId>
+    <artifactId>vgps900-parser</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>Visiontac VGPS-900 parser</name>
+    <name>Visiontac VGPS-900 parser</name>
 
-  <licenses>
-    <license>
-      <name>GNU General Public License (GPL) version 3.0</name>
-      <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <scm>
-    <connection>scm:git:git@github.com:carlgreen/visiontac.git</connection>
-    <url>scm:git:git@github.com:carlgreen/visiontac.git</url>
-    <developerConnection>scm:git:git@github.com:carlgreen/visiontac.git</developerConnection>
-  </scm>
+    <scm>
+        <connection>scm:git:git@github.com:carlgreen/visiontac.git</connection>
+        <url>scm:git:git@github.com:carlgreen/visiontac.git</url>
+        <developerConnection>scm:git:git@github.com:carlgreen/visiontac.git</developerConnection>
+    </scm>
 
-  <ciManagement>
-    <system>jenkins</system>
-    <url>https://carlgreen.ci.cloudbees.com/job/visiontac/</url>
-  </ciManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://carlgreen.ci.cloudbees.com/job/visiontac/</url>
+    </ciManagement>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.7</java.version>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.7</java.version>
+    </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.0</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <compilerArgument>-Xlint:all</compilerArgument>
-          <showWarnings>true</showWarnings>
-          <showDeprecation>true</showDeprecation>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
