@@ -41,18 +41,8 @@ public final class Vgps900Parser {
         data.setIndex(Long.parseLong(fields[0]));
         data.setTag(fields[1].charAt(0));
         data.setTimestamp(parseTimestamp(fields[2], fields[3]));
-        double latitude = Double.parseDouble(fields[4].substring(0, fields[4].length() - 1));
-        final char latitudeSign = fields[4].charAt(fields[4].length() - 1);
-        if (latitudeSign == 'S') {
-            latitude *= -1;
-        }
-        data.setLatitude(latitude);
-        double longitude = Double.parseDouble(fields[5].substring(0, fields[5].length() - 1));
-        final char longitudeSign = fields[5].charAt(fields[5].length() - 1);
-        if (longitudeSign == 'S') {
-            longitude *= -1;
-        }
-        data.setLongitude(longitude);
+        data.setLatitude(parseLatitude(fields[4]));
+        data.setLongitude(parseLongitude(fields[5]));
         data.setHeight(Integer.parseInt(fields[6]));
         data.setSpeed(Integer.parseInt(fields[7]));
         data.setHeading(Integer.parseInt(fields[8]));
@@ -73,5 +63,17 @@ public final class Vgps900Parser {
         } catch (final ParseException e) {
             throw new InvalidDataException(e, datetimeString);
         }
+    }
+
+    double parseLatitude(final String latitudeString) {
+        final double unsignedLatitude = Double.parseDouble(latitudeString.substring(0, latitudeString.length() - 1));
+        final char latitudeSign = latitudeString.charAt(latitudeString.length() - 1);
+        return latitudeSign == 'N' ? unsignedLatitude : unsignedLatitude * -1;
+    }
+
+    double parseLongitude(final String longitudeString) {
+        final double unsignedLongitude = Double.parseDouble(longitudeString.substring(0, longitudeString.length() - 1));
+        final char longitudeSign = longitudeString.charAt(longitudeString.length() - 1);
+        return longitudeSign == 'E' ? unsignedLongitude : unsignedLongitude * -1;
     }
 }
