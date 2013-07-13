@@ -22,7 +22,7 @@ import java.util.Date;
  *
  * @author Carl Green
  */
-public class Vgps900Data {
+public final class Vgps900Data {
     private long index;
     private char tag;
     private Date timestamp;
@@ -47,115 +47,167 @@ public class Vgps900Data {
     private Double vdop;
     private String vox;
 
-    public long getIndex() {
-        return index;
+    private Vgps900Data(final Builder builder) {
+        this.index = builder.index;
+        this.tag = builder.tag;
+        this.timestamp = builder.timestamp;
+        this.latitude = builder.latitude;
+        this.longitude = builder.longitude;
+        this.height = builder.height;
+        this.speed = builder.speed;
+        this.heading = builder.heading;
+        this.fixMode = builder.fixMode;
+        this.valid = builder.valid;
+        this.pdop = builder.pdop;
+        this.hdop = builder.hdop;
+        this.vdop = builder.vdop;
+        this.vox = builder.vox;
     }
 
-    void setIndex(final long index) {
-        this.index = index;
+    public long getIndex() {
+        return index;
     }
 
     public char getTag() {
         return tag;
     }
 
-    void setTag(final char tag) {
-        this.tag = tag;
-    }
-
     public Date getTimestamp() {
         return new Date(timestamp.getTime());
-    }
-
-    void setTimestamp(final Date timestamp) {
-        this.timestamp = timestamp;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
-    void setLatitude(final double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
-    }
-
-    void setLongitude(final double longitude) {
-        this.longitude = longitude;
     }
 
     public int getHeight() {
         return height;
     }
 
-    void setHeight(final int height) {
-        this.height = height;
-    }
-
     public int getSpeed() {
         return speed;
-    }
-
-    void setSpeed(final int speed) {
-        this.speed = speed;
     }
 
     public int getHeading() {
         return heading;
     }
 
-    void setHeading(final int heading) {
-        this.heading = heading;
-    }
-
     public String getFixMode() {
         return fixMode;
-    }
-
-    void setFixMode(final String fixMode) {
-        this.fixMode = fixMode;
     }
 
     public String getValid() {
         return valid;
     }
 
-    void setValid(final String valid) {
-        this.valid = valid;
-    }
-
     public Double getPdop() {
         return pdop;
-    }
-
-    void setPdop(final Double pdop) {
-        this.pdop = pdop;
     }
 
     public Double getHdop() {
         return hdop;
     }
 
-    void setHdop(final Double hdop) {
-        this.hdop = hdop;
-    }
-
     public Double getVdop() {
         return vdop;
-    }
-
-    void setVdop(final Double vdop) {
-        this.vdop = vdop;
     }
 
     public String getVox() {
         return vox;
     }
 
-    void setVox(final String vox) {
-        this.vox = vox;
+    static class Builder {
+        private long index;
+        private char tag;
+        private Date timestamp;
+        private double latitude;
+        private double longitude;
+        private int height;
+        private int speed;
+        private int heading;
+        private String fixMode;
+        private String valid;
+        private Double pdop;
+        private Double hdop;
+        private Double vdop;
+        private String vox;
+
+        Builder index(final long index) {
+            this.index = index;
+            return this;
+        }
+
+        Builder tag(final char tag) {
+            this.tag = tag;
+            return this;
+        }
+
+        Builder timestamp(final Date timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        Builder latitude(final double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        Builder longitude(final double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        Builder height(final int height) {
+            this.height = height;
+            return this;
+        }
+
+        Builder speed(final int speed) {
+            this.speed = speed;
+            return this;
+        }
+
+        Builder heading(final int heading) {
+            this.heading = heading;
+            return this;
+        }
+
+        Builder fixMode(final String fixMode) {
+            this.fixMode = fixMode;
+            return this;
+        }
+
+        Builder valid(final String valid) {
+            this.valid = valid;
+            return this;
+        }
+
+        Builder pdop(final Double pdop) {
+            this.pdop = pdop;
+            return this;
+        }
+
+        Builder hdop(final Double hdop) {
+            this.hdop = hdop;
+            return this;
+        }
+
+        Builder vdop(final Double vdop) {
+            this.vdop = vdop;
+            return this;
+        }
+
+        Builder vox(final String vox) {
+            this.vox = vox;
+            return this;
+        }
+
+        Vgps900Data build() {
+            return new Vgps900Data(this);
+        }
     }
 }

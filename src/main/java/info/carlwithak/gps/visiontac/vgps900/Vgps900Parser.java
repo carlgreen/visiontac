@@ -35,29 +35,30 @@ public final class Vgps900Parser {
     }
 
     public Vgps900Data parse(final String line) throws InvalidDataException {
-        final Vgps900Data data = new Vgps900Data();
         final String[] fields = line.split("\0*,");
 
-        data.setIndex(Long.parseLong(fields[0]));
-        data.setTag(fields[1].charAt(0));
-        data.setTimestamp(parseTimestamp(fields[2], fields[3]));
-        data.setLatitude(parseLatitude(fields[4]));
-        data.setLongitude(parseLongitude(fields[5]));
-        data.setHeight(Integer.parseInt(fields[6]));
-        data.setSpeed(Integer.parseInt(fields[7]));
-        data.setHeading(Integer.parseInt(fields[8]));
+        final Vgps900Data.Builder builder = new Vgps900Data.Builder()
+                .index(Long.parseLong(fields[0]))
+                .tag(fields[1].charAt(0))
+                .timestamp(parseTimestamp(fields[2], fields[3]))
+                .latitude(parseLatitude(fields[4]))
+                .longitude(parseLongitude(fields[5]))
+                .height(Integer.parseInt(fields[6]))
+                .speed(Integer.parseInt(fields[7]))
+                .heading(Integer.parseInt(fields[8]));
+
         if (fields.length == 15) {
-            data.setFixMode(fields[9]);
-            data.setValid(fields[10]);
-            data.setPdop(Double.parseDouble(fields[11]));
-            data.setHdop(Double.parseDouble(fields[12]));
-            data.setVdop(Double.parseDouble(fields[13]));
-            data.setVox(fields[14].trim());
+            builder.fixMode(fields[9])
+                    .valid(fields[10])
+                    .pdop(Double.parseDouble(fields[11]))
+                    .hdop(Double.parseDouble(fields[12]))
+                    .vdop(Double.parseDouble(fields[13]))
+                    .vox(fields[14].trim());
         } else {
-            data.setVox(fields[9].trim());
+            builder.vox(fields[9].trim());
         }
 
-        return data;
+        return builder.build();
     }
 
     Date parseTimestamp(final String dateString, final String timeString) throws InvalidDataException {
