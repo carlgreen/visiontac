@@ -18,6 +18,7 @@ package info.carlwithak.gps.visiontac.vgps900;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -26,11 +27,11 @@ import java.util.TimeZone;
  */
 public final class Vgps900Parser {
 
-    private final SimpleDateFormat DF;
+    private final SimpleDateFormat utcDateFormat;
 
     public Vgps900Parser() {
-        DF = new SimpleDateFormat("yyMMddHHmmss");
-        DF.setTimeZone(TimeZone.getTimeZone("UTC"));
+        utcDateFormat = new SimpleDateFormat("yyMMddHHmmss");
+        utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     public Vgps900Data parse(final String line) throws InvalidDataException {
@@ -39,11 +40,7 @@ public final class Vgps900Parser {
 
         data.setIndex(Long.parseLong(fields[0]));
         data.setTag(fields[1].charAt(0));
-        try {
-            data.setTimestamp(DF.parse(fields[2] + fields[3]));
-        } catch (final ParseException e) {
-            throw new InvalidDataException(e, line);
-        }
+        data.setTimestamp(parseTimestamp(fields[2], fields[3]));
         double latitude = Double.parseDouble(fields[4].substring(0, fields[4].length() - 1));
         final char latitudeSign = fields[4].charAt(fields[4].length() - 1);
         if (latitudeSign == 'S') {
@@ -67,5 +64,14 @@ public final class Vgps900Parser {
         data.setVox(fields[14].trim());
 
         return data;
+    }
+
+    Date parseTimestamp(final String dateString, final String timeString) throws InvalidDataException {
+        final String datetimeString = dateString + timeString;
+        try {
+            return utcDateFormat.parse(datetimeString);
+        } catch (final ParseException e) {
+            throw new InvalidDataException(e, datetimeString);
+        }
     }
 }

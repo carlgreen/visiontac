@@ -33,6 +33,15 @@ public class Vgps900ParserTest {
     private final Vgps900Parser parser = new Vgps900Parser();
 
     @Test
+    public void testParseTimestamp() throws InvalidDataException {
+        final Calendar date = new GregorianCalendar();
+        date.set(Calendar.MILLISECOND, 0);
+        date.setTimeZone(TimeZone.getTimeZone("UTC"));
+        date.set(111 + 1900, 11, 13, 18, 50, 59);
+        assertThat(parser.parseTimestamp("111213", "185059"), is(date.getTime()));
+    }
+
+    @Test
     public void testParseAdvancedLine() throws InvalidDataException {
         final String input = "1\0\0\0\0\0,T,111213,185059,36.874506S,174.779188E,152\0\0,79\0\0,120,3D,SPS ,2.1\0\0,1.9\0\0,1.0\0\0,\0\0\0\0\0\0\0\0\0";
 
