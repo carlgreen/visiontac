@@ -17,6 +17,7 @@
 package info.carlwithak.gps.visiontac.vgps900;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import org.junit.Test;
@@ -34,11 +35,7 @@ public class Vgps900ParserTest {
 
     @Test
     public void testParseTimestamp() throws InvalidDataException {
-        final Calendar date = new GregorianCalendar();
-        date.set(Calendar.MILLISECOND, 0);
-        date.setTimeZone(TimeZone.getTimeZone("UTC"));
-        date.set(111 + 1900, 11, 13, 18, 50, 59);
-        assertThat(parser.parseTimestamp("111213", "185059"), is(date.getTime()));
+        assertThat(parser.parseTimestamp("111213", "185059"), is(getUtcDate(111 + 1900, 11, 13, 18, 50, 59)));
     }
 
     @Test
@@ -68,11 +65,7 @@ public class Vgps900ParserTest {
         final Vgps900Data result = parser.parse(input);
         assertThat(result.getIndex(), is(1L));
         assertThat(result.getTag(), is('T'));
-        final Calendar date = new GregorianCalendar();
-        date.set(Calendar.MILLISECOND, 0);
-        date.setTimeZone(TimeZone.getTimeZone("UTC"));
-        date.set(111 + 1900, 11, 13, 18, 50, 59);
-        assertThat(result.getTimestamp(), is(date.getTime()));
+        assertThat(result.getTimestamp(), is(getUtcDate(111 + 1900, 11, 13, 18, 50, 59)));
         assertThat(result.getLatitude(), is(-36.874506));
         assertThat(result.getLongitude(), is(174.779188));
         assertThat(result.getHeight(), is(152));
@@ -84,5 +77,13 @@ public class Vgps900ParserTest {
         assertThat(result.getHdop(), is(1.9));
         assertThat(result.getVdop(), is(1.0));
         assertThat(result.getVox(), is(""));
+    }
+
+    private static Date getUtcDate(int year, int month, int date, int hourOfDay, int minute, int second) {
+        final Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        cal.set(year, month, date, hourOfDay, minute, second);
+        return cal.getTime();
     }
 }
