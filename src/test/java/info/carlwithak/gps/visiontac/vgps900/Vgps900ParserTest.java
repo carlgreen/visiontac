@@ -35,6 +35,11 @@ public class Vgps900ParserTest {
         assertThat(parser.parseTimestamp("111213", "185059"), is(getUtcDate(111 + 1900, 11, 13, 18, 50, 59)));
     }
 
+    @Test(expected = InvalidDataException.class)
+    public void parseInvalidTimestampShouldFail() throws InvalidDataException {
+        parser.parseTimestamp("a11213", "185059");
+    }
+
     @Test
     public void parseNorthernLatitudeShouldReturnSignedValue() throws InvalidDataException {
         assertThat(parser.parseLatitude("36.874506N"), is(36.874506));
