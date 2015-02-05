@@ -31,37 +31,37 @@ public class Vgps900ParserTest {
     private final Vgps900Parser parser = new Vgps900Parser();
 
     @Test
-    public void testParseTimestamp() throws InvalidDataException {
+    public void parseTimestampShouldReturnValidDate() throws InvalidDataException {
         assertThat(parser.parseTimestamp("111213", "185059"), is(getUtcDate(111 + 1900, 11, 13, 18, 50, 59)));
     }
 
     @Test
-    public void testParseNorthernLatitude() throws InvalidDataException {
+    public void parseNorthernLatitudeShouldReturnSignedValue() throws InvalidDataException {
         assertThat(parser.parseLatitude("36.874506N"), is(36.874506));
     }
 
     @Test
-    public void testParseSouthernLatitude() throws InvalidDataException {
+    public void parseSouthernLatitudeShouldReturnSignedValue() throws InvalidDataException {
         assertThat(parser.parseLatitude("36.874506S"), is(-36.874506));
     }
 
     @Test(expected = InvalidDataException.class)
-    public void testParseInvalidLatitude() throws InvalidDataException {
+    public void parseInvalidLatitudeShouldFail() throws InvalidDataException {
         parser.parseLatitude("36.874506X");
     }
 
     @Test
-    public void testParseEasternLongitude() throws InvalidDataException {
+    public void parseEasternLongitudeShouldReturnSignedValue() throws InvalidDataException {
         assertThat(parser.parseLongitude("174.779188E"), is(174.779188));
     }
 
     @Test
-    public void testParseWesternLongitude() throws InvalidDataException {
+    public void parseWesternLongitudeShouldReturnSignedValue() throws InvalidDataException {
         assertThat(parser.parseLongitude("174.779188W"), is(-174.779188));
     }
 
     @Test
-    public void testParseStandardLine() throws Exception {
+    public void parseStandardLineShouldReturnPopulatedData() throws Exception {
         final String input = "23\0\0\0\0,T,090512,041041,41.302453S,174.778450E,2\0\0,3\0\0\0,0\0\0,\0\0\0\0\0\0\0\0\0";
 
         final Vgps900Data result = parser.parse(input);
@@ -82,7 +82,7 @@ public class Vgps900ParserTest {
     }
 
     @Test
-    public void testParseAdvancedLine() throws InvalidDataException {
+    public void parseAdvancedLineShouldReturnPopulatedData() throws InvalidDataException {
         final String input = "1\0\0\0\0\0,T,111213,185059,36.874506S,174.779188E,152\0\0,79\0\0,120,3D,SPS ,2.1\0\0,1.9\0\0,1.0\0\0,\0\0\0\0\0\0\0\0\0";
 
         final Vgps900Data result = parser.parse(input);
