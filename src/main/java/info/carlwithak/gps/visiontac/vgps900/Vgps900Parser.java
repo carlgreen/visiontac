@@ -27,10 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- *
- * @author Carl Green
- */
 public final class Vgps900Parser {
 
     private final SimpleDateFormat utcDateFormat;

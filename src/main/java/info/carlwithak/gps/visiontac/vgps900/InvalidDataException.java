@@ -16,10 +16,6 @@
  */
 package info.carlwithak.gps.visiontac.vgps900;
 
-/**
- *
- * @author Carl Green
- */
 public class InvalidDataException extends Exception {
 
     private static final long serialVersionUID = 1L;

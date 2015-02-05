@@ -26,10 +26,6 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
-/**
- *
- * @author Carl Green
- */
 public class Vgps900ParserTest {
 
     private final Vgps900Parser parser = new Vgps900Parser();

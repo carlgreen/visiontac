@@ -18,10 +18,6 @@ package info.carlwithak.gps.visiontac.vgps900;
 
 import java.util.Date;
 
-/**
- *
- * @author Carl Green
- */
 public final class Vgps900Data {
     private long index;
     private char tag;
