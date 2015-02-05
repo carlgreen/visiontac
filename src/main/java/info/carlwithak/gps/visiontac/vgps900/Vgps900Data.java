@@ -20,29 +20,29 @@ import java.util.Date;
 
 public final class Vgps900Data {
 
-    private long index;
-    private char tag;
-    private Date timestamp;
-    private double latitude;
-    private double longitude;
+    private final long index;
+    private final char tag;
+    private final Date timestamp;
+    private final double latitude;
+    private final double longitude;
     /**
      * meters above sea level.
      */
-    private int height;
+    private final int height;
     /**
      * meters per second.
      */
-    private int speed;
+    private final int speed;
     /**
      * degrees.
      */
-    private int heading;
-    private String fixMode;
-    private String valid;
-    private Double pdop;
-    private Double hdop;
-    private Double vdop;
-    private String vox;
+    private final int heading;
+    private final String fixMode;
+    private final String valid;
+    private final Double pdop;
+    private final Double hdop;
+    private final Double vdop;
+    private final String vox;
 
     private Vgps900Data(final Builder builder) {
         this.index = builder.index;
