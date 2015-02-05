@@ -19,6 +19,7 @@ package info.carlwithak.gps.visiontac.vgps900;
 import java.util.Date;
 
 public final class Vgps900Data {
+
     private long index;
     private char tag;
     private Date timestamp;
@@ -117,6 +118,7 @@ public final class Vgps900Data {
     }
 
     static class Builder {
+
         private long index;
         private char tag;
         private Date timestamp;
