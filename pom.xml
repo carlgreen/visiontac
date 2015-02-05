@@ -26,8 +26,8 @@
     </scm>
 
     <ciManagement>
-        <system>jenkins</system>
-        <url>https://carlgreen.ci.cloudbees.com/job/visiontac/</url>
+        <system>travis</system>
+        <url>https://travis-ci.org/carlgreen/visiontac</url>
     </ciManagement>
 
     <properties>
